@@ -7,6 +7,9 @@ const Categories = () => {
     { id: 2, name: 'Cat Breeds', count: 32, description: 'All cat breed categories' },
     { id: 3, name: 'Diseases', count: 28, description: 'Common pet diseases and conditions' },
   ]);
+  
+
+  
 
   return (
     <div className="space-y-6">
