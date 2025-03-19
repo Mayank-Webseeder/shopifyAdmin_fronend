@@ -1,75 +1,72 @@
-import React, { useState } from 'react';
-import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { useState } from "react";
+import SubCategoryComponent from "./SubCategoryComponent";
 
-const Categories = () => {
-  const [categories] = useState([
-    { id: 1, name: 'Dog Breeds', count: 45, description: 'All dog breed categories' },
-    { id: 2, name: 'Cat Breeds', count: 32, description: 'All cat breed categories' },
-    { id: 3, name: 'Diseases', count: 28, description: 'Common pet diseases and conditions' },
-  ]);
-  
+const CategoryComponent = () => {
+  // Hardcoded categories
+  const categories = [
+    {
+      id: "1",
+      name: "Shop By Breed",
+      description: "Browse products by animal breed",
+      subcategories: []
+    },
+    {
+      id: "2",
+      name: "Shop By Disease",
+      description: "Browse products by animal disease",
+      subcategories: []
+    }
+  ];
 
-  
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  // Select a category and show its subcategories
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
+
+  // Go back to categories list
+  const navigateToCategories = () => {
+    setSelectedCategory(null);
+  };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold text-gray-900">Category Management</h1>
-        <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-          <Plus className="h-4 w-4 mr-2" />
-          Add Category
-        </button>
-      </div>
+    <div className="min-h-screen bg-gray-50 p-6">
+      {!selectedCategory ? (
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-between items-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-800">Categories</h1>
+          </div>
 
-      <div className="bg-white shadow rounded-lg">
-        <div className="px-4 py-5 sm:p-6">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Name
-                  </th>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Pages
-                  </th>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Description
-                  </th>
-                  <th className="px-6 py-3 bg-gray-50 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {categories.map((category) => (
-                  <tr key={category.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                      {category.name}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {category.count} pages
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {category.description}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <button className="text-blue-600 hover:text-blue-900 mr-4">
-                        <Pencil className="h-4 w-4" />
-                      </button>
-                      <button className="text-red-600 hover:text-red-900">
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          {/* Categories List */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {categories.map((category) => (
+              <div 
+                key={category.id} 
+                className="bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+                onClick={() => handleCategorySelect(category)}
+              >
+                <div className="p-6">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-2">{category.name}</h2>
+                  <p className="text-gray-600 mb-4">{category.description}</p>
+                  <div className="flex justify-end">
+                    <button className="text-blue-600 hover:text-blue-800">
+                      View Subcategories →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      ) : (
+        <SubCategoryComponent 
+          category={selectedCategory} 
+          onBack={navigateToCategories} 
+        />
+      )}
     </div>
   );
 };
 
-export default Categories;
+export default CategoryComponent;
