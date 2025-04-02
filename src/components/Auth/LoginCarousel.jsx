@@ -2,28 +2,28 @@ import React, { useEffect } from "react";
 import Carousel from "./Carousel";
 
 const LoginCarousel = () => {
-  const testimage =
-    "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=2020&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-  const testimage2 =
-    "https://images.unsplash.com/photo-1729006076706-888c334c11ed?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-  const testimage3 =
-    "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  const image =
+    "https://images.unsplash.com/photo-1599443015574-be5fe8a05783?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  const image2 =
+    "https://images.unsplash.com/photo-1599908758979-25ba52737fb5?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+  const image3 =
+    "https://images.unsplash.com/photo-1455557412176-951a705225c5?q=80&w=3132&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   const slides = [
     {
-      image: testimage,
-      name: "Data Management",
-      text: "Aggregate, trach and furnish real-time reports on your ESG performance.",
+      "image": image,
+      "name": "Page Management",
+      "text": "Create, edit, and organize pages to keep your content up to date."
     },
     {
-      image: testimage2,
-      name: "Investment",
-      text: "Supercharge Your Investment decisions while uploading compliance standards",
+      "image": image2,
+      "name": "Homepage Customization",
+      "text": "Design and manage your homepage with banners, sections, and featured content."
     },
     {
-      image: testimage3,
-      name: "Net Zero",
-      text: "Stay informed on yo GreenHouser Gas footprint and avoidance statics.",
-    },
+      "image": image3,
+      "name": "Dashboard & KPIs",
+      "text": "Monitor key metrics, track updates, and get insights at a glance."
+    }
   ].map((data) => {
     return (
       <div className="h-screen w-full relative">
@@ -39,7 +39,7 @@ const LoginCarousel = () => {
     );
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <div className="w-full overflow-hidden flex flex-col justify-evenly items-center col-span-2">

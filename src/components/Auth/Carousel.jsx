@@ -23,7 +23,7 @@ const items = [
 function Carousel({ data = items, setnum = 1, setmode }) {
   const responsive = {
     0: { items: 1 },
-    568: { items: 2 },
+    568: { items: 1 },
     1024: { items: setnum ? setnum : 3 },
   };
   return (
