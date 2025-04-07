@@ -223,7 +223,7 @@ const HomePageManagement = () => {
                 <button
                   type="button"
                   className={`flex-1 p-2 rounded-lg ${selectedType === "pages"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-[#483285] text-white"
                     : "bg-gray-200 text-gray-700"
                     }`}
                   onClick={() => {
@@ -236,7 +236,7 @@ const HomePageManagement = () => {
                 <button
                   type="button"
                   className={`flex-1 p-2 rounded-lg ${selectedType === "products"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-[#483285] text-white"
                     : "bg-gray-200 text-gray-700"
                     }`}
                   onClick={() => {
@@ -327,7 +327,7 @@ const HomePageManagement = () => {
               <div className="flex gap-2">
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                  className="flex-1 bg-[#483285] text-white py-2 rounded-lg hover:bg-blue-700"
                 >
                   {editingId ? "Update Section" : "Create Section"}
                 </button>
@@ -371,12 +371,12 @@ const HomePageManagement = () => {
               data-id={section._id}
             >
               {/* Banner Image */}
-              <div className="w-32 h-32 flex-shrink-0 relative">
+              <div className="w-96 h-32 flex-shrink-0 relative pl-4">
                 {section.bannerImage ? (
                   <img
                     src={`${import.meta.env.VITE_API_BASE_URL_IMG}/${section.bannerImage}`}
                     alt="Banner"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain rounded-lg"
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -398,7 +398,7 @@ const HomePageManagement = () => {
                   </div>
                   <div className="flex space-x-2">
                     <button
-                      className="p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+                      className="p-2 bg-green-600 text-white rounded-md"
                       onClick={() => handleEdit(section)}
                     >
                       <Pencil size={16} />

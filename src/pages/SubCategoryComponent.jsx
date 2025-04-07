@@ -100,7 +100,7 @@ const SubCategoryComponent = ({ category, onBack }) => {
             <h1 className="text-3xl font-bold text-gray-800">{category.name} Subcategories</h1>
             <button
               onClick={handleOpenModal}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="px-4 py-2 bg-[#483285] text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               Add Subcategory
             </button>
@@ -211,7 +211,7 @@ const SubCategoryComponent = ({ category, onBack }) => {
                           <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                             <button
                               type="submit"
-                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                              className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#483285] text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                             >
                               Add Subcategory
                             </button>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Pencil, Trash2 } from "lucide-react";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -153,7 +154,7 @@ const OfferSections = () => {
 
             <button
                 onClick={() => { setIsFormOpen(!isFormOpen); resetForm(); }}
-                className="mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
+                className="mb-4 px-4 py-2 bg-[#483285] text-white rounded-lg"
             >
                 {isFormOpen ? "Close Form" : "Add Offer Section"}
             </button>
@@ -233,8 +234,8 @@ const OfferSections = () => {
                         <img src={import.meta.env.VITE_API_BASE_URL_IMG + "/" + section.banner} alt={section.title} className="w-full h-40 object-cover rounded-lg mb-4" />
                         <h2 className="text-lg font-semibold">{section.title}</h2>
 
-                        <button className="px-3 py-1 bg-yellow-500 text-white rounded mr-2" onClick={() => editSection(section)}>Edit</button>
-                        <button className="px-3 py-1 bg-red-500 text-white rounded" onClick={() => deleteSection(section._id)}>Delete</button>
+                        <button className="px-3 p-2 bg-green-600 text-white rounded mr-2" onClick={() => editSection(section)}>   <Pencil size={16} /></button>
+                        <button className="px-3 p-2 bg-red-600 text-white rounded" onClick={() => deleteSection(section._id)}><Trash2 size={16} /></button>
                     </div>
                 ))}
             </div>

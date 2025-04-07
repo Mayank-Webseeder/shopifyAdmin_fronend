@@ -59,7 +59,7 @@ const ProductDetail = () => {
                 <div className="flex gap-3">
                     <Link
                         to={-1}
-                        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                        className="px-4 py-2 bg-[#483285] text-white rounded-md hover:bg-blue-700"
                     >
                         Go Back
                     </Link>

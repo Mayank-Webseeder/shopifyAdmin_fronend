@@ -51,7 +51,7 @@ const Products = () => {
         </div>
         <button
           onClick={syncWithShopify}
-          className={`flex items-center px-4 py-2 rounded-lg text-white transition-all ${syncing ? 'bg-gray-500 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+          className={`flex items-center px-4 py-2 rounded-lg text-white transition-all ${syncing ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#483285] hover:bg-blue-700'}`}
           disabled={syncing}
         >
           {syncing ? <Loader className="h-5 w-5 mr-2 animate-spin" /> : <RefreshCw className="h-5 w-5 mr-2" />}

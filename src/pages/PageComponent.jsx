@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 const PageComponent = ({ category, subcategory, onBack }) => {
   const [breeds, setBreeds] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   // Form state
   const [breedForm, setBreedForm] = useState({
     name: "",
@@ -91,7 +91,7 @@ const PageComponent = ({ category, subcategory, onBack }) => {
         </div>
         <button
           onClick={handleOpenModal}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          className="px-4 py-2 bg-[#483285] text-white rounded-md hover:bg-blue-700 transition-colors"
         >
           Add Page
         </button>
@@ -209,7 +209,7 @@ const PageComponent = ({ category, subcategory, onBack }) => {
                       <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                         <button
                           type="submit"
-                          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#483285] text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                         >
                           Add Page
                         </button>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Pencil, Trash2 } from "lucide-react";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -16,6 +17,8 @@ const PagesManagement = () => {
   const [avatarImage, setAvatarImage] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [productSearch, setProductSearch] = useState("");
+
 
   useEffect(() => {
     fetchSubcategories();
@@ -122,6 +125,11 @@ const PagesManagement = () => {
     fetchPages(subcategoryId);
   };
 
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(productSearch.toLowerCase())
+  );
+
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold mb-4">Manage Pages</h1>
@@ -147,8 +155,15 @@ const PagesManagement = () => {
           </select>
 
           <label className="block text-gray-700">Linked Products:</label>
+          <input
+            type="text"
+            placeholder="Search products..."
+            className="w-full p-2 border rounded-lg my-2"
+            value={productSearch}
+            onChange={(e) => setProductSearch(e.target.value)}
+          />
           <div className="border rounded-lg p-2 max-h-40 overflow-y-auto mb-4">
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <label key={product._id} className="flex items-center space-x-2">
                 <input
                   type="checkbox"
@@ -170,7 +185,7 @@ const PagesManagement = () => {
           <label className="block text-gray-700">Avatar Image:</label>
           <input type="file" className="w-full p-2 border rounded-lg mb-4" onChange={(e) => setAvatarImage(e.target.files[0])} />
 
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+          <button type="submit" className="w-full bg-[#483285] text-white py-2 rounded-lg hover:bg-blue-700">
             {editingId ? "Update Page" : "Create Page"}
           </button>
         </form>
@@ -232,16 +247,16 @@ const PagesManagement = () => {
               {/* Action Buttons */}
               <div className="mt-auto flex justify-between items-center pt-4">
                 <button
-                  className="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition"
+                  className="p-2 bg-green-600 text-white rounded-md hover:bg-yellow-600 transition"
                   onClick={() => handleEdit(page)}
                 >
-                  Edit
+                  <Pencil size={16} />
                 </button>
                 <button
-                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                  className="p-2 bg-red-600 text-white rounded-md hover:bg-red-600 transition"
                   onClick={() => handleDelete(page._id)}
                 >
-                  Delete
+                  <Trash2 size={16} />
                 </button>
               </div>
             </div>

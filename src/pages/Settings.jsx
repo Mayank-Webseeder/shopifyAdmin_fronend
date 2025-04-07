@@ -6,7 +6,7 @@ const Settings = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold text-gray-900">Webhook & Sync Settings</h1>
-        <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <button className="flex items-center px-4 py-2 bg-[#483285] text-white rounded-lg hover:bg-blue-700">
           <RefreshCw className="h-4 w-4 mr-2" />
           Force Sync
         </button>
@@ -47,11 +47,10 @@ const Settings = () => {
                   </div>
                 </div>
                 <span
-                  className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                    log.status === 'success'
+                  className={`px-2 py-1 text-xs font-semibold rounded-full ${log.status === 'success'
                       ? 'bg-green-100 text-green-800'
                       : 'bg-red-100 text-red-800'
-                  }`}
+                    }`}
                 >
                   {log.status}
                 </span>

@@ -187,7 +187,7 @@ const SubcategoryManagement = () => {
               <div className="flex space-x-4 mt-4">
                 <button
                   type="submit"
-                  className="flex-grow bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+                  className="flex-grow bg-[#483285] text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
                 >
                   {editingId ? "Update Subcategory" : "Create Subcategory"}
                 </button>
@@ -271,16 +271,16 @@ const SubcategoryManagement = () => {
 
                 <div className="flex space-x-2">
                   <button
-                    className="p-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition duration-300"
+                    className="p-2 bg-green-600 text-white rounded-md transition duration-300"
                     onClick={() => handleEdit(sub)}
                   >
-                    <Edit2 size={20} />
+                    <Edit2 size={16} />
                   </button>
                   <button
-                    className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition duration-300"
+                    className="p-2 bg-red-600 text-white rounded-md transition duration-300"
                     onClick={() => handleDelete(sub._id)}
                   >
-                    <Trash2 size={20} />
+                    <Trash2 size={16} />
                   </button>
                 </div>
               </div>

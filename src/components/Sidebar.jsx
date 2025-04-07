@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Layers, BookOpen, ShoppingBag, Home, LogOut } from 'lucide-react';
+import { LayoutDashboard, Layers, BookOpen, ShoppingBag, Home, LogOut, BadgePercent } from 'lucide-react';
 import logo from '../../public/logo1.png';
 
 function Sidebar() {
@@ -24,7 +24,7 @@ function Sidebar() {
               {[
                 { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
                 { to: '/home', icon: Home, label: 'Home Page' },
-                { to: '/Offers', icon: Home, label: 'offers' },
+                { to: '/offers', icon: BadgePercent, label: 'Offers' },
                 { to: '/manage-pages', icon: BookOpen, label: 'Manage Pages' },
                 { to: '/categories', icon: Layers, label: 'Manage Categories' },
                 { to: '/products', icon: ShoppingBag, label: 'Products' },
