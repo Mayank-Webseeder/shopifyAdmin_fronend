@@ -4,6 +4,7 @@ import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import axios from "axios";
+import logo from '../../../public/logo1.png';
 
 const Login = () => {
   return (
@@ -51,6 +52,10 @@ const LoginForm = () => {
 
   return (
     <div className="h-full w-full col-span-1 flex flex-col justify-center items-start px-8 text-[#203d5d]">
+      <div className="flex items-center justify-center h-28 px-6 bg-gray-850 w-full mb-8">
+        <img src={logo} className='h-full w-full object-contain object-center' />
+      </div>
+
       <form className="space-y-6 w-full max-w-sm" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email" className="block text-sm font-medium">

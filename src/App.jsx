@@ -10,6 +10,7 @@ import ProductDetail from './pages/ProductDetail';
 import Settings from './pages/Settings';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound'; // Import the 404 page
+import OfferSections from './pages/OfferSections';
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -46,6 +47,7 @@ function App() {
                     <Routes>
                       <Route path="/home" element={<Home />} />
                       <Route path="/dashboard" element={<Dashboard />} />
+                      <Route path="/offers" element={<OfferSections />} />
                       <Route path="/categories" element={<Categories />} />
                       <Route path="/manage-pages" element={<Pages />} />
                       <Route path="/products" element={<Products />} />

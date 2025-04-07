@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Layers, BookOpen, ShoppingBag, Home, LogOut } from 'lucide-react';
+import logo from '../../public/logo1.png';
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -14,10 +15,8 @@ function Sidebar() {
     <aside className="lg:flex">
       <div className="flex flex-col w-64 border-r border-gray-800 shadow-xl">
         <div className="flex flex-col h-screen bg-gradient-to-b from-gray-900 to-gray-800">
-          <div className="flex items-center h-16 px-6 border-b border-gray-700 bg-gray-850">
-            <h1 className="text-2xl font-bold text-white tracking-tight">
-              <span className="text-blue-400">Goel Vet</span> Admin
-            </h1>
+          <div className="flex items-center h-28 px-6 border-b border-gray-700 bg-gray-850">
+            <img src={logo} className='h-full w-full object-contain object-center' />
           </div>
 
           <div className="flex-1 overflow-y-auto px-4 py-6">
@@ -25,6 +24,7 @@ function Sidebar() {
               {[
                 { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
                 { to: '/home', icon: Home, label: 'Home Page' },
+                { to: '/Offers', icon: Home, label: 'offers' },
                 { to: '/manage-pages', icon: BookOpen, label: 'Manage Pages' },
                 { to: '/categories', icon: Layers, label: 'Manage Categories' },
                 { to: '/products', icon: ShoppingBag, label: 'Products' },
@@ -34,7 +34,7 @@ function Sidebar() {
                   to={to}
                   className={({ isActive }) =>
                     `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ease-in-out ${isActive
-                      ? 'bg-blue-600/20 text-blue-300 ring-1 ring-blue-500/30'
+                      ? 'bg-[#483285] text-white ring-1 ring-purple-500/30'
                       : 'text-gray-300 hover:bg-gray-700/50 hover:text-white'
                     }`
                   }
