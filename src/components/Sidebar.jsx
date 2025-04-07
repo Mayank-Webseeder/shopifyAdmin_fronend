@@ -51,12 +51,12 @@ function Sidebar() {
             <div className="flex items-center justify-between">
               {/* Admin Details */}
               <div className="flex items-center space-x-3">
-                <div className="h-10 w-10 rounded-full bg-gray-700 flex items-center justify-center ring-2 ring-blue-500/30">
+                <div className="h-10 w-10 rounded-full bg-gray-700 flex items-center justify-center ring-2 ring-purple-500/30">
                   <span className="text-sm font-semibold text-white">GVP</span>
                 </div>
                 <div className="flex flex-col">
                   <div className="text-sm font-medium text-white">Admin User</div>
-                  <div className="text-xs text-gray-400">Administrator</div>
+                  <div className="text-xs text-gray-400">GOEL VET</div>
                 </div>
               </div>
 
