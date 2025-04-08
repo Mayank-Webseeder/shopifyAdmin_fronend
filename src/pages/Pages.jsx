@@ -18,6 +18,8 @@ const PagesManagement = () => {
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [productSearch, setProductSearch] = useState("");
+  const [formOpen, setFormOpen] = useState(false);
+
 
 
   useEffect(() => {
@@ -60,16 +62,16 @@ const PagesManagement = () => {
     setEditingId(page._id);
     setTitle(page.title);
     setContent(page.content);
-    setSubcategory(page.subcategory._id); // Ensure the form dropdown selects the correct subcategory
+    setSubcategory(page.subcategory._id);
     setLinkedProducts(page.linkedProducts.map((p) => p._id));
     setBannerImage(null);
     setAvatarImage(null);
-
-    // Only update selectedSubcategory if the user hasn't already selected a filter
+    setFormOpen(true); // Open the form when editing
     if (!selectedSubcategory) {
       setSelectedSubcategory(page.subcategory);
     }
   };
+
 
 
 
@@ -135,61 +137,89 @@ const PagesManagement = () => {
       <h1 className="text-2xl font-bold mb-4">Manage Pages</h1>
 
       {/* Form Section */}
-      <div className="bg-white shadow-lg rounded-lg p-6 mb-6">
-        <h2 className="text-lg font-semibold mb-4">{editingId ? "Edit Page" : "Create Page"}</h2>
-        <form onSubmit={handleSubmit}>
-          <label className="block text-gray-700">Title:</label>
-          <input type="text" className="w-full p-2 border rounded-lg mb-4" value={title} onChange={(e) => setTitle(e.target.value)} required />
 
-          <label className="block text-gray-700">Content:</label>
-          <textarea className="w-full p-2 border rounded-lg mb-4" value={content} onChange={(e) => setContent(e.target.value)} required />
-
-          <label className="block text-gray-700">Subcategory:</label>
-          <select className="w-full p-2 border rounded-lg mb-4" value={subcategory} onChange={(e) => setSubcategory(e.target.value)} required>
-            <option value="">Select Subcategory</option>
-            {subcategories.map((sub) => (
-              <option key={sub._id} value={sub._id}>
-                {sub.name} - (<span className="text-xs">{sub.category}</span>)
-              </option>
-            ))}
-          </select>
-
-          <label className="block text-gray-700">Linked Products:</label>
-          <input
-            type="text"
-            placeholder="Search products..."
-            className="w-full p-2 border rounded-lg my-2"
-            value={productSearch}
-            onChange={(e) => setProductSearch(e.target.value)}
-          />
-          <div className="border rounded-lg p-2 max-h-40 overflow-y-auto mb-4">
-            {filteredProducts.map((product) => (
-              <label key={product._id} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={linkedProducts.includes(product._id)}
-                  onChange={() =>
-                    setLinkedProducts((prev) =>
-                      prev.includes(product._id) ? prev.filter((id) => id !== product._id) : [...prev, product._id]
-                    )
-                  }
-                />
-                <span>{product.title}</span>
-              </label>
-            ))}
-          </div>
-
-          <label className="block text-gray-700">Banner Image:</label>
-          <input type="file" className="w-full p-2 border rounded-lg mb-4" onChange={(e) => setBannerImage(e.target.files[0])} />
-
-          <label className="block text-gray-700">Avatar Image:</label>
-          <input type="file" className="w-full p-2 border rounded-lg mb-4" onChange={(e) => setAvatarImage(e.target.files[0])} />
-
-          <button type="submit" className="w-full bg-[#483285] text-white py-2 rounded-lg hover:bg-blue-700">
-            {editingId ? "Update Page" : "Create Page"}
+      <div className="mb-4">
+        {!formOpen && (
+          <button
+            onClick={() => setFormOpen(true)}
+            className="bg-[#483285] text-white px-4 py-2 rounded-lg hover:bg-[#372466]"
+          >
+            + Create New Page
           </button>
-        </form>
+        )}
       </div>
+      {formOpen && (
+        <div className="bg-white shadow-lg rounded-lg p-6 mb-6 transition-all">
+          <h2 className="text-lg font-semibold mb-4">{editingId ? "Edit Page" : "Create Page"}</h2>
+          <form onSubmit={handleSubmit}>
+            <label className="block text-gray-700">Title:</label>
+            <input type="text" className="w-full p-2 border rounded-lg mb-4" value={title} onChange={(e) => setTitle(e.target.value)} required />
+
+            <label className="block text-gray-700">Content:</label>
+            <textarea className="w-full p-2 border rounded-lg mb-4" value={content} onChange={(e) => setContent(e.target.value)} required />
+
+            <label className="block text-gray-700">Subcategory:</label>
+            <select className="w-full p-2 border rounded-lg mb-4" value={subcategory} onChange={(e) => setSubcategory(e.target.value)} required>
+              <option value="">Select Subcategory</option>
+              {subcategories.map((sub) => (
+                <option key={sub._id} value={sub._id}>
+                  {sub.name} - (<span className="text-xs">{sub.category}</span>)
+                </option>
+              ))}
+            </select>
+
+            <label className="block text-gray-700">Linked Products:</label>
+            <input
+              type="text"
+              placeholder="Search products..."
+              className="w-full p-2 border rounded-lg my-2"
+              value={productSearch}
+              onChange={(e) => setProductSearch(e.target.value)}
+            />
+            <div className="border rounded-lg p-2 max-h-40 overflow-y-auto mb-4">
+              {filteredProducts.map((product) => (
+                <label key={product._id} className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={linkedProducts.includes(product._id)}
+                    onChange={() =>
+                      setLinkedProducts((prev) =>
+                        prev.includes(product._id) ? prev.filter((id) => id !== product._id) : [...prev, product._id]
+                      )
+                    }
+                  />
+                  <span>{product.title}</span>
+                </label>
+              ))}
+            </div>
+
+            <label className="block text-gray-700">Banner Image:</label>
+            <input type="file" className="w-full p-2 border rounded-lg mb-4" onChange={(e) => setBannerImage(e.target.files[0])} />
+
+            <label className="block text-gray-700">Avatar Image:</label>
+            <input type="file" className="w-full p-2 border rounded-lg mb-4" onChange={(e) => setAvatarImage(e.target.files[0])} />
+
+            <div className="flex space-x-4">
+              <button
+                type="submit"
+                className="w-full bg-[#483285] text-white py-2 rounded-lg hover:bg-blue-700"
+              >
+                {editingId ? "Update Page" : "Create Page"}
+              </button>
+              <button
+                type="button"
+                className="w-full bg-gray-300 text-gray-800 py-2 rounded-lg hover:bg-gray-400"
+                onClick={() => {
+                  resetForm();
+                  setFormOpen(false);
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
 
       {/* Filter Section */}
       <div className="mb-6">
