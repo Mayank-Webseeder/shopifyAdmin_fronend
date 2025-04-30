@@ -22,7 +22,7 @@ function Sidebar() {
           <div className="flex-1 overflow-y-auto px-4 py-6">
             <nav className="flex flex-col space-y-2">
               {[
-                { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
+                { to: '/', icon: LayoutDashboard, label: 'Dashboard' },
                 { to: '/home', icon: Home, label: 'Home Page' },
                 { to: '/offers', icon: BadgePercent, label: 'Offers' },
                 { to: '/manage-pages', icon: BookOpen, label: 'Manage Pages' },
