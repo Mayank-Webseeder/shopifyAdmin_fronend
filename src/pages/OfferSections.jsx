@@ -148,6 +148,14 @@ const OfferSections = () => {
         p.title.toLowerCase().includes(searchProduct.toLowerCase())
     );
 
+    const breedSubcategories = filteredSubcategories.filter(
+        sc => sc.category === "Shop by Breed"
+    );
+    const diseaseSubcategories = filteredSubcategories.filter(
+        sc => sc.category === "Shop by Disease"
+    );
+
+
     return (
         <div className="p-6 bg-gray-100 min-h-screen">
             <h1 className="text-2xl font-bold mb-4">Offer Sections</h1>
@@ -170,10 +178,11 @@ const OfferSections = () => {
                             onChange={(e) => setTitle(e.target.value)}
                             className="w-full p-2 border rounded-md"
                         />
-
-                        {/* Image Input */}
-                        <input type="file" accept="image/*" onChange={handleBannerChange} className="w-full p-2 border rounded-md" />
-
+                        <div className="space-y-2">
+                            <h2 className="font-semibold">Banner Image: <span className="italic font-thin">540px (W) x 180px (H)</span></h2>
+                            {/* Image Input */}
+                            <input type="file" accept="image/*" onChange={handleBannerChange} className="w-full p-2 border rounded-md" />
+                        </div>
                         {/* Subcategory Search */}
                         <input
                             type="text"
@@ -184,18 +193,55 @@ const OfferSections = () => {
                         />
 
                         {/* Subcategories Multi-Select */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 border p-2 rounded-md max-h-40 overflow-y-auto">
-                            {filteredSubcategories.map(sc => (
-                                <div
-                                    key={sc._id}
-                                    className={`p-2 border rounded-md cursor-pointer ${selectedSubcategories.includes(sc._id) ? "bg-blue-500 text-white" : "bg-white"
-                                        }`}
-                                    onClick={() => toggleSelection(sc._id, "subcategory")}
-                                >
-                                    {sc.name}
+                        <>
+                            {(breedSubcategories.length > 0 || diseaseSubcategories.length > 0) ? (
+                                <div className="flex flex-col md:flex-row gap-4">
+                                    {/* Shop by Breed */}
+                                    {breedSubcategories.length > 0 && (
+                                        <div className="flex-1">
+                                            <h3 className="font-semibold mb-1">Shop by Breed</h3>
+                                            <div className="grid grid-cols-2 gap-2 border p-2 rounded-md max-h-40 overflow-y-auto">
+                                                {breedSubcategories.map(sc => (
+                                                    <div
+                                                        key={sc._id}
+                                                        className={`p-2 border rounded-md cursor-pointer ${selectedSubcategories.includes(sc._id)
+                                                            ? "bg-blue-500 text-white"
+                                                            : "bg-white"
+                                                            }`}
+                                                        onClick={() => toggleSelection(sc._id, "subcategory")}
+                                                    >
+                                                        {sc.name}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Shop by Disease */}
+                                    {diseaseSubcategories.length > 0 && (
+                                        <div className="flex-1">
+                                            <h3 className="font-semibold mb-1">Shop by Disease</h3>
+                                            <div className="grid grid-cols-2 gap-2 border p-2 rounded-md max-h-40 overflow-y-auto">
+                                                {diseaseSubcategories.map(sc => (
+                                                    <div
+                                                        key={sc._id}
+                                                        className={`p-2 border rounded-md cursor-pointer ${selectedSubcategories.includes(sc._id)
+                                                            ? "bg-blue-500 text-white"
+                                                            : "bg-white"
+                                                            }`}
+                                                        onClick={() => toggleSelection(sc._id, "subcategory")}
+                                                    >
+                                                        {sc.name}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
-                            ))}
-                        </div>
+                            ) : (
+                                <p className="text-gray-500 italic">No subcategories available.</p>
+                            )}
+                        </>
 
                         {/* Product Search */}
                         <input
@@ -221,7 +267,7 @@ const OfferSections = () => {
                         </div>
 
                         <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded-lg">
-                            {editingSection ? "Update" : "Save"} Offer Section
+                            {editingSection ? "Update" : "Create"} Offer Section
                         </button>
                     </form>
                 </div>
@@ -234,8 +280,20 @@ const OfferSections = () => {
                         <img src={import.meta.env.VITE_API_BASE_URL_IMG + "/" + section.banner} alt={section.title} className="w-full h-40 object-cover rounded-lg mb-4" />
                         <h2 className="text-lg font-semibold">{section.title}</h2>
 
-                        <button className="px-3 p-2 bg-green-600 text-white rounded mr-2" onClick={() => editSection(section)}>   <Pencil size={16} /></button>
-                        <button className="px-3 p-2 bg-red-600 text-white rounded" onClick={() => deleteSection(section._id)}><Trash2 size={16} /></button>
+                        <div className="flex justify-start items-center gap-2 mt-4">
+                            <button
+                                onClick={() => editSection(section)}
+                                className="p-2 bg-white shadow rounded-full hover:bg-green-100"
+                            >
+                                <Pencil className="text-green-700 w-5 h-5" />
+                            </button>
+                            <button
+                                onClick={() => deleteSection(section._id)}
+                                className="p-2 bg-white shadow rounded-full hover:bg-red-100"
+                            >
+                                <Trash2 className="text-red-700 w-5 h-5" />
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

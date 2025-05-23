@@ -30,6 +30,7 @@ const PagesManagement = () => {
 
   const fetchPages = async (subcategoryId = "") => {
     try {
+      setLoading(true);
       const url = subcategoryId ? `${API_BASE_URL}/pages/admin?subcategory=${subcategoryId}` : `${API_BASE_URL}/pages/admin`;
       const response = await axios.get(url);
       setPages(response.data);
@@ -71,9 +72,6 @@ const PagesManagement = () => {
       setSelectedSubcategory(page.subcategory);
     }
   };
-
-
-
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this page?")) return;
@@ -193,10 +191,10 @@ const PagesManagement = () => {
               ))}
             </div>
 
-            <label className="block text-gray-700">Banner Image:</label>
+            <label className="block text-gray-700">Banner Image: <span className="italic font-thin">540px (W) x 180px (H)</span></label>
             <input type="file" className="w-full p-2 border rounded-lg mb-4" onChange={(e) => setBannerImage(e.target.files[0])} />
 
-            <label className="block text-gray-700">Avatar Image:</label>
+            <label className="block text-gray-700">Avatar Image: <span className="italic font-thin">200px (W) x 200px (H)</span></label>
             <input type="file" className="w-full p-2 border rounded-lg mb-4" onChange={(e) => setAvatarImage(e.target.files[0])} />
 
             <div className="flex space-x-4">
@@ -232,68 +230,92 @@ const PagesManagement = () => {
           <option value="">All Subcategories</option>
           {subcategories.map((sub) => (
             <option key={sub._id} value={sub._id}>
-              {sub.name}
+              {sub.name} - ({sub.category})
             </option>
           ))}
         </select>
       </div>
 
       {/* Pages List */}
-      <h2 className="text-xl font-bold mb-4">Existing Pages</h2>
-      {pages.length === 0 ? (
-        <div className="bg-white shadow-lg rounded-lg p-6 text-center">
-          <p className="text-gray-600">No pages found.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {pages.map((page) => (
-            <div key={page._id} className="bg-white shadow-lg rounded-lg p-6 flex flex-col">
-              {/* Page Title */}
-              <h2 className="text-lg font-semibold text-gray-900">{page.title}</h2>
-
-              {/* Page Content Preview */}
-              <p className="text-gray-600 mt-2 text-sm line-clamp-3">{page.content}</p>
-
-              {/* Subcategory */}
-              <p className="text-gray-500 text-sm mt-2">
-                <span className="font-semibold">Subcategory:</span> {page.subcategory?.name || "N/A"}
-              </p>
-
-              {/* Linked Products */}
-              {page.linkedProducts?.length > 0 && (
-                <div className="mt-2">
-                  <p className="font-semibold text-gray-700">Linked Products:</p>
-                  <ul className="text-gray-600 text-sm">
-                    {page.linkedProducts.slice(0, 3).map((product) => (
-                      <li key={product._id} className="list-disc ml-4">{product.title}</li>
-                    ))}
-                    {page.linkedProducts.length > 3 && (
-                      <p className="text-gray-500 text-sm mt-1">+{page.linkedProducts.length - 3} more</p>
-                    )}
-                  </ul>
-                </div>
-              )}
-
-              {/* Action Buttons */}
-              <div className="mt-auto flex justify-between items-center pt-4">
-                <button
-                  className="p-2 bg-green-600 text-white rounded-md hover:bg-yellow-600 transition"
-                  onClick={() => handleEdit(page)}
-                >
-                  <Pencil size={16} />
-                </button>
-                <button
-                  className="p-2 bg-red-600 text-white rounded-md hover:bg-red-600 transition"
-                  onClick={() => handleDelete(page._id)}
-                >
-                  <Trash2 size={16} />
-                </button>
-              </div>
+      {loading ? <div className="bg-white shadow-md rounded-lg p-6 text-center">
+        <p className="text-gray-600">Loading pages...</p>
+      </div> :
+        <>      <h2 className="text-xl font-bold mb-4">Existing Pages</h2>
+          {pages.length === 0 ? (
+            <div className="bg-white shadow-lg rounded-lg p-6 text-center">
+              <p className="text-gray-600">No pages found.</p>
             </div>
-          ))}
-        </div>
-      )}
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {pages.map((page) => (
+                <div key={page._id} className="bg-white shadow-lg rounded-lg p-6 flex flex-col">
+                  {/* Page Title */}
+                  <img
+                    src={`${import.meta.env.VITE_API_BASE_URL_IMG}/${page.bannerImage}`}
+                    alt="Banner"
+                    className="w-full h-20 rounded-lg object-cover"
+                  />
+                  <div className="flex justify-start items-center gap-4 mt-4">
+                    <img
+                      src={`${import.meta.env.VITE_API_BASE_URL_IMG}/${page.avatarImage}`}
+                      alt="Avatar"
+                      className="w-16 h-16 rounded-full object-cover"
+                    />
+                    <h2 className="text-lg font-semibold text-gray-900">{page.title}</h2>
+                  </div>
 
+                  {/* Page Content Preview */}
+                  <p className="text-gray-600 mt-2 text-sm line-clamp-3">{page.content}</p>
+
+                  {/* Category */}
+                  <p className="text-gray-500 text-sm mt-2">
+                    <span className="font-semibold">Category:</span> {page.subcategory?.category || "N/A"}
+                  </p>
+
+                  {/* Subcategory */}
+                  <p className="text-gray-500 text-sm">
+                    <span className="font-semibold">Subcategory:</span> {page.subcategory?.name || "N/A"}
+                  </p>
+
+                  {/* Linked Products */}
+                  {page.linkedProducts?.length > 0 && (
+                    <div className="mt-2">
+                      <p className="font-semibold text-gray-700">Linked Products:</p>
+                      <ul className="text-gray-600 text-sm">
+                        {page.linkedProducts.slice(0, 3).map((product) => (
+                          <li key={product._id} className="list-disc ml-4">{product.title}</li>
+                        ))}
+                        {page.linkedProducts.length > 3 && (
+                          <p className="text-gray-500 text-sm mt-1">+{page.linkedProducts.length - 3} more</p>
+                        )}
+                      </ul>
+                    </div>
+                  )}
+
+                  {/* Action Buttons */}
+                  <div className="mt-auto flex justify-between items-center pt-4">
+
+
+                    <button
+                      onClick={() => handleEdit(page)}
+                      className="p-2 bg-white shadow rounded-full hover:bg-green-100"
+                    >
+                      <Pencil className="text-green-700 w-5 h-5" />
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(page._id)}
+                      className="p-2 bg-white shadow rounded-full hover:bg-red-100"
+                    >
+                      <Trash2 className="text-red-700 w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      }
     </div>
   );
 };

@@ -4,38 +4,38 @@
 
 
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
-    color-scheme: light;
-    color: #213547;
-    background-color: #ffffff;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  color: #213547;
+  background-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+@layer components {
+  .sidebar-icon {
+    @apply flex flex-col items-center justify-center w-full py-3 text-white hover:bg-[#07545A] transition-colors;
   }
-  
-  body {
-    margin: 0;
-    min-width: 320px;
-    min-height: 100vh;
+
+  .nav-item {
+    @apply px-3 py-2 text-white hover:bg-bigin-teal rounded transition-colors;
   }
-  
-  @layer components {
-    .sidebar-icon {
-      @apply flex flex-col items-center justify-center w-full py-3 text-white hover:bg-[#07545A] transition-colors;
-    }
-    
-    .nav-item {
-      @apply px-3 py-2 text-white hover:bg-bigin-teal rounded transition-colors;
-    }
-    
-    .btn-primary {
-      @apply bg-bigin-teal text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors;
-    }
-    
-    .btn-outline {
-      @apply border border-bigin-teal text-bigin-teal px-4 py-2 rounded-md hover:bg-bigin-teal hover:text-white transition-colors;
-    }
-    
-    .card {
-      @apply bg-white rounded-lg shadow-md p-4;
-    }
+
+  .btn-primary {
+    @apply bg-bigin-teal text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors;
   }
+
+  .btn-outline {
+    @apply border border-bigin-teal text-bigin-teal px-4 py-2 rounded-md hover:bg-bigin-teal hover:text-white transition-colors;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-4;
+  }
+}

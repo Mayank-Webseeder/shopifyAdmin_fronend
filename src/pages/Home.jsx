@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pencil, Trash2, ChevronDown, ChevronUp, Image as ImageIcon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -150,7 +152,21 @@ const HomePageManagement = () => {
   // Handle drag and drop
   const handleDragStart = (e, id) => {
     setDraggedItem(id);
+
+    // Set a custom drag image (clone the dragged element)
+    const target = e.currentTarget;
+    const clone = target.cloneNode(true);
+    clone.style.position = "absolute";
+    clone.style.top = "-9999px"; // move it out of view
+    clone.style.left = "-9999px";
+    clone.style.width = `${target.offsetWidth}px`; // preserve size
+    document.body.appendChild(clone);
+    e.dataTransfer.setDragImage(clone, 0, 0);
+
+    // Remove clone after short time
+    setTimeout(() => document.body.removeChild(clone), 0);
   };
+
 
   const handleDragOver = (e) => {
     e.preventDefault();
@@ -211,7 +227,7 @@ const HomePageManagement = () => {
                 required
               />
 
-              <label className="block text-gray-700">Banner Image:</label>
+              <label className="block text-gray-700">Banner Image: <span className="italic font-thin">540px (W) x 180px (H)</span></label>
               <input
                 type="file"
                 className="w-full p-2 border rounded-lg mb-4"
@@ -363,103 +379,68 @@ const HomePageManagement = () => {
           {sections.map((section) => (
             <div
               key={section._id}
-              className="bg-white shadow-md rounded-lg overflow-hidden flex items-center"
+              className={`bg-transparent rounded-lg overflow-hidden flex items-center transition-all duration-300 ease-in-out ${draggedItem === section._id ? 'ring-2 ring-blue-500 scale-105 shadow-2xl' : ''
+                }`}
               draggable
               onDragStart={(e) => handleDragStart(e, section._id)}
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               data-id={section._id}
             >
-              {/* Banner Image */}
-              <div className="w-96 h-32 flex-shrink-0 relative pl-4">
-                {section.bannerImage ? (
+
+              <div className="bg-white rounded-xl shadow-xl overflow-hidden mb-10 w-full">
+                {/* Banner Section */}
+                <div className="relative">
                   <img
                     src={`${import.meta.env.VITE_API_BASE_URL_IMG}/${section.bannerImage}`}
-                    alt="Banner"
-                    className="w-full h-full object-contain rounded-lg"
+                    alt={section.title}
+                    className="w-full h-32 object-contain bg-gray-100"
                   />
-                ) : (
-                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                    <ImageIcon className="text-gray-500" />
+                  <div className="absolute bottom-3 left-4 text-white bg-black/50 px-4 py-2 rounded-xl">
+                    <h2 className="text-xl font-bold">{section.title}</h2>
+                    <p className="text-sm">{section.linkedPages?.length ? 'Type: Pages' : 'Type: Products'}</p>
                   </div>
-                )}
-              </div>
 
-              {/* Section Details */}
-              <div className="flex-grow p-4">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h2 className="text-lg font-bold text-gray-800">{section.title}</h2>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {section.linkedPages && section.linkedPages.length > 0
-                        ? "Type: Pages"
-                        : "Type: Products"}
-                    </p>
-                  </div>
-                  <div className="flex space-x-2">
+                  {/* Floating Buttons */}
+                  <div className="absolute top-4 right-4 flex gap-2">
                     <button
-                      className="p-2 bg-green-600 text-white rounded-md"
                       onClick={() => handleEdit(section)}
+                      className="p-2 bg-white shadow rounded-full hover:bg-green-100"
                     >
-                      <Pencil size={16} />
+                      <Pencil className="text-green-700 w-5 h-5" />
                     </button>
                     <button
-                      className="p-2 bg-red-500 text-white rounded-md hover:bg-red-600"
                       onClick={() => handleDelete(section._id)}
+                      className="p-2 bg-white shadow rounded-full hover:bg-red-100"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 className="text-red-700 w-5 h-5" />
                     </button>
                   </div>
                 </div>
 
-                <div className="mt-3">
-                  {section.linkedPages && section.linkedPages.length > 0 ? (
-                    <>
-                      <h3 className="text-sm font-semibold text-gray-700">
-                        Linked Pages ({section.linkedPages.length}):
-                      </h3>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {section.linkedPages.slice(0, 5).map(page => (
-                          <span
-                            key={page._id}
-                            className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs"
-                          >
-                            {page.title}
-                          </span>
-                        ))}
-                        {section.linkedPages.length > 5 && (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs">
-                            +{section.linkedPages.length - 5} more
-                          </span>
-                        )}
-                      </div>
-                    </>
-                  ) : section.linkedProducts && section.linkedProducts.length > 0 ? (
-                    <>
-                      <h3 className="text-sm font-semibold text-gray-700">
-                        Linked Products ({section.linkedProducts.length}):
-                      </h3>
-                      <div className="mt-2 flex flex-wrap gap-2">
-                        {section.linkedProducts.slice(0, 5).map(product => (
-                          <span
-                            key={product._id}
-                            className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs"
-                          >
-                            {product.title}
-                          </span>
-                        ))}
-                        {section.linkedProducts.length > 5 && (
-                          <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded-full text-xs">
-                            +{section.linkedProducts.length - 5} more
-                          </span>
-                        )}
-                      </div>
-                    </>
-                  ) : (
-                    <p className="text-sm text-gray-500">No linked items</p>
-                  )}
+                {/* Linked Items Section */}
+                <div className="p-4 border-t bg-gray-50">
+                  <h4 className="text-gray-800 font-semibold text-sm mb-2">
+                    {section.linkedPages?.length
+                      ? `Linked Pages (${section.linkedPages.length})`
+                      : `Linked Products (${section.linkedProducts.length})`}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {(section.linkedPages?.length ? section.linkedPages : section.linkedProducts)?.map((item) => (
+                      <span
+                        key={item._id}
+                        className={`text-xs px-3 py-1 rounded-full ${section.linkedPages?.length
+                          ? "bg-blue-100 text-blue-700"
+                          : "bg-green-100 text-green-700"
+                          }`}
+                      >
+                        {item.title}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
+
             </div>
           ))}
         </div>

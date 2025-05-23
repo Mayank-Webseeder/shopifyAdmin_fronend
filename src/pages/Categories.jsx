@@ -7,7 +7,8 @@ import {
   Filter,
   Edit2,
   Trash2,
-  X
+  X,
+  Pencil
 
 } from "lucide-react";
 
@@ -166,7 +167,7 @@ const SubcategoryManagement = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 mb-2">Banner Image:</label>
+                  <label className="block text-gray-700 mb-2">Banner Image: <span className="italic font-thin">540px (W) x 180px (H)</span></label>
                   <input
                     type="file"
                     className="w-full p-2 border rounded-lg file:mr-4 file:rounded-md file:border-0 file:bg-blue-50 file:px-4 file:py-2"
@@ -175,7 +176,7 @@ const SubcategoryManagement = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 mb-2">Avatar Image:</label>
+                  <label className="block text-gray-700 mb-2">Avatar Image: <span className="italic font-thin">200px (W) x 200px (H)</span></label>
                   <input
                     type="file"
                     className="w-full p-2 border rounded-lg file:mr-4 file:rounded-md file:border-0 file:bg-blue-50 file:px-4 file:py-2"
@@ -271,16 +272,16 @@ const SubcategoryManagement = () => {
 
                 <div className="flex space-x-2">
                   <button
-                    className="p-2 bg-green-600 text-white rounded-md transition duration-300"
                     onClick={() => handleEdit(sub)}
+                    className="p-2 bg-white shadow rounded-full hover:bg-green-100"
                   >
-                    <Edit2 size={16} />
+                    <Pencil className="text-green-700 w-5 h-5" />
                   </button>
                   <button
-                    className="p-2 bg-red-600 text-white rounded-md transition duration-300"
                     onClick={() => handleDelete(sub._id)}
+                    className="p-2 bg-white shadow rounded-full hover:bg-red-100"
                   >
-                    <Trash2 size={16} />
+                    <Trash2 className="text-red-700 w-5 h-5" />
                   </button>
                 </div>
               </div>
