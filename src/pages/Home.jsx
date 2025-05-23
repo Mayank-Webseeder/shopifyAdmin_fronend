@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pencil, Trash2, ChevronDown, ChevronUp, Image as ImageIcon } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
